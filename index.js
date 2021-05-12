@@ -21,18 +21,25 @@ const config = require("./config.json");
     const results = [];
 
     for (let date = dateStart; date.getTime() <= now.getTime(); date.setDate(date.getDate() + 1)) {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
         const url = config.url
-            .replace('{year}', date.getFullYear())
-            .replace('{month}', date.getMonth() + 1)
-            .replace('{day}', date.getDate());
+            .replace('{year}', year)
+            .replace('{month}', month)
+            .replace('{day}', day);
         await page.goto(url);
         await page.waitForSelector('#valid_requests');
         const textContent = await page.evaluate(() => {
-            return parseInt(document.querySelector("#valid_requests").textContent);
+            return parseInt(document.querySelector("#valid_requests").textContent.split('').filter((char) => !isNaN(char)).join(''));
         });
-        results.push(textContent);
+        results.push({
+            value: textContent,
+            date: `${year}-${month}-${day}`
+        });
     }
 
     writeFileSync(config.output, JSON.stringify(results));
+    process.exit(0);
 
 })();

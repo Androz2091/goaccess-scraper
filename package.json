@@ -1,0 +1,11 @@
+{
+  "name": "goaccess-scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Androz2091 <androz2091@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "args-parser": "^1.2.0",
+    "puppeteer": "^9.1.1"
+  }
+}

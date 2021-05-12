@@ -1,0 +1,7 @@
+{
+    "url": "https://rt.goaccess.io/?{year}{month}{day}",
+    "headless": false,
+    "selector": "#valid_requests",
+    "start": "10-05-2021",
+    "output": "./res.json"
+}
